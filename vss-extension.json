@@ -1,0 +1,36 @@
+{
+    "manifestVersion": 1,
+    "id": "key-vault-transform",
+    "name": "Azure Key Vault Transform",
+    "version": "0.1.10",
+    "publisher": "WesleyCamargo",
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],    
+    "description": "Tools for building/releasing with Azure Pipelines.",
+    "categories": [
+        "Azure Pipelines"
+    ],
+    "icons": {
+        "default": "logo.png"        
+    },
+    "files": [
+        {
+            "path": "Tasks/KeyVaultTransform"
+        }
+    ],
+    "contributions": [
+        {
+            "id": "KeyVaultTransform",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "Tasks/KeyVaultTransform"
+            }
+        }
+    ]
+}

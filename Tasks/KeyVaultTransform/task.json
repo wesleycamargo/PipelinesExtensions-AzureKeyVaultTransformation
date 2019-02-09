@@ -1,0 +1,131 @@
+{
+    "id": "1b59f7e2-8047-4a21-bef2-86bc2378cf9c",
+    "name": "keyVaultTransform",
+    "friendlyName": "Azure Key Vault Transform",
+    "description": "Transform files using tokens and Azure Key Vault",
+    "helpMarkDown": "",
+    "categories": [
+        "Azure Pipelines"
+    ],
+    "author": "Wesley Camargo",
+    "version": {
+        "Major": 0,
+        "Minor": 1,
+        "Patch": 10
+    },
+    "instanceNameFormat": "Transforming files",
+    "groups": [
+        {
+            "name": "AzureEndpoint",
+            "displayName": "Azure Endpoint",
+            "isExpanded": true
+        },
+        {
+            "name": "Files",
+            "displayName": "Files",
+            "isExpanded": true
+        },
+        {
+            "name": "ReplaceTokenFile",
+            "displayName": "Replace Token File",
+            "isExpanded": true
+        }
+    ],
+    "inputs": [
+        {
+            "name": "ConnectedServiceName",
+            "type": "connectedService:AzureRM",
+            "label": "Azure RM Subscription",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "Select the Azure Resource Manager subscription for the deployment.",
+            "groupName": "AzureEndpoint"
+        },
+        {
+            "name": "PathToArchives",
+            "type": "filePath",
+            "label": "Path to archives",
+            "required": true,
+            "defaultValue": "$(System.DefaultWorkingDirectory)",
+            "helpMarkDown": "Path to archive location e.g. $(System.DefaultWorkingDirectory)/drop",
+            "groupName":"Files"
+        },
+        {
+            "name": "Packages",
+            "type": "string",
+            "label": "Archive file filter",
+            "required": false,
+            "defaultValue": "*.zip",
+            "helpMarkDown": "The archive files to search for e.g. somefile.zip or *.zip. This is used in Get-ChildItem as -Include",
+            "groupName":"Files"
+        },
+        {
+            "name": "FilesToTokenize",
+            "type": "string",
+            "label": "Configuration file",
+            "required": true,
+            "defaultValue": "Web.config",
+            "helpMarkDown": "The filename or regex to find correct files within the archives to run tokenization replacement on. This is used in PS file.FullName -match.",
+            "groupName":"Files"
+        },
+        {
+            "name": "Prefix",
+            "type": "string",
+            "label": "Token prefix",
+            "required": true,
+            "defaultValue": "__",
+            "helpMarkDown": "Token prefix e.g. __",
+            "groupName":"Files"
+        },
+        {
+            "name": "Suffix",
+            "type": "string",
+            "label": "Token suffix",
+            "required": true,
+            "defaultValue": "__",
+            "helpMarkDown": "Token suffix e.g. __",
+            "groupName":"Files"
+        },
+        {
+            "name": "ReplaceWithEmpty",
+            "type": "boolean",
+            "label": "Replace with empty values",
+            "required": true,
+            "defaultValue": "False",
+            "helpMarkDown": "By default keeps the token, when checked then it will replace with empty values.",
+            "groupName":"Files"
+        },
+        {
+            "name": "KeyVaults",
+            "type": "multiLine",
+            "label": "Key Vaults",
+            "required": true,
+            "defaultValue": "",            
+            "helpMarkDown": "Key Vaults Name - Splited by ','",
+            "groupName":"Files"        
+        },
+        {
+            "name": "ReplaceTokenFile",
+            "type": "boolean",
+            "label": "ReplaceTokenFile",
+            "required": true,
+            "defaultValue": "False",
+            "helpMarkDown": "Replace Token File",
+            "groupName":"ReplaceTokenFile"
+        },
+        {
+            "name": "TargetTokenFile",
+            "type": "string",
+            "label": "Target Token File",
+            "required": false,
+            "defaultValue": "",            
+            "helpMarkDown": "Target Token File",
+            "groupName":"ReplaceTokenFile"        
+        }
+    ],
+    "execution": {
+        "PowerShell3": {
+            "target": "keyVaultTransform.ps1"
+        }
+    }
+}
